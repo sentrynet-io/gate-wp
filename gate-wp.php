@@ -53,8 +53,8 @@ class SentryNetGate
         }
 
         if ($path === '/sn-verify' && ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
-            $cookie_name = $config['cookie_name'] ?? 'sentrynet_ftoken';
-            $this->handle_verify($cookie_name);
+            $cookieName = $config['cookieName'] ?? 'sentrynet_ftoken';
+            $this->handle_verify($cookieName);
         }
     }
 
@@ -144,7 +144,7 @@ class SentryNetGate
             return $this->requestProcessor;
         }
 
-        $cookieName = $config['cookie_name'] ?? 'sentrynet_ftoken';
+        $cookieName = $config['cookieName'] ?? 'sentrynet_ftoken';
         $token = $_COOKIE[$cookieName] ?? '';
 
         return $this->requestProcessor = new \SentryNet\RequestProcessor(
@@ -185,7 +185,7 @@ class SentryNetGate
         $this->render($html);
     }
 
-    private function handle_verify(string $cookie_name): void
+    private function handle_verify(string $cookieName): void
     {
         $ip = $this->get_client_ip();
         if (empty($ip)) {
@@ -217,13 +217,12 @@ class SentryNetGate
         );
         if (!empty($token)) {
             setcookie(
-                $cookie_name,
+                $cookieName,
                 $token,
                 [
                     'expires'  => 0,
                     'path'     => '/',
                     'secure'   => is_ssl(),
-                    'httponly' => true,
                     'samesite' => 'Strict',
                 ]
             );
