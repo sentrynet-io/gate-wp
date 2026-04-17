@@ -53,7 +53,7 @@ class SentryNetGate
         }
 
         if ($path === '/sn-verify' && ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
-            $cookieName = $config['cookieName'] ?? 'sentrynet_ftoken';
+            $cookieName = $config['cookie_name'] ?? 'sentrynet_ftoken';
             $this->handle_verify($cookieName);
         }
     }
@@ -144,7 +144,7 @@ class SentryNetGate
             return $this->requestProcessor;
         }
 
-        $cookieName = $config['cookieName'] ?? 'sentrynet_ftoken';
+        $cookieName = $config['cookie_name'] ?? 'sentrynet_ftoken';
         $token = $_COOKIE[$cookieName] ?? '';
 
         return $this->requestProcessor = new \SentryNet\RequestProcessor(
