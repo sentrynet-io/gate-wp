@@ -7,7 +7,7 @@ namespace SentryNet;
 class ApiResponse
 {
     /** @var array<string, mixed> */
-    public array $body;
+    public array $body = [];
 
     public function __construct(
         public int $status,
